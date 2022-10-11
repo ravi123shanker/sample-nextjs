@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "../../styles/Home.module.css";
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const res = await fetch(`https://jsonplaceholder.typicode.com/todos`);
   const data = await res.json();
   // Pass data to the page via props

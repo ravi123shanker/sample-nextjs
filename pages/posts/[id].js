@@ -2,7 +2,16 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../../styles/Home.module.css";
 
-export async function getServerSideProps({params}) {
+export async function getStaticPaths({ params }) {
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+  const data = await res.json();
+  return {
+    paths: data.map((item)=>({params: {id: item.id.toString()}})),
+    fallback: false,
+  }
+}
+
+export async function getStaticProps({params}) {
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`);
   const data = await res.json();
   // Pass data to the page via props
